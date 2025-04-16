@@ -1,0 +1,123 @@
+import pyttsx3
+import datetime
+import speech_recognition as sr
+import webbrowser
+engine = pyttsx3.init(&#39;sapi5&#39;)
+voices = engine.getProperty(&#39;voices&#39;)
+engine.setProperty(&#39;voice&#39; , voices[0].id)
+def speak(text):
+    engine.say(text)
+    engine.runAndWait()
+defwishme():
+    hour= int(datetime.datetime.now().hour)
+    if hour &gt;= 0 and hour&lt;12:
+        engine.say(&quot;good morning&quot;)
+    elif hour &gt;=12 and hour &lt;= 18:
+         engine.say(&quot;good afternoon&quot;)
+    else:
+        speak(&quot;good evening&quot;)
+def command():
+    r = sr.Recognizer()
+    with sr.Microphone() as source:
+         print(&quot;listening....&quot;)
+         r.adjust_for_ambient_noise(source)
+         speak(&quot;now you can speak&quot;)
+         r.pause_threshold = 1
+         audio = r.listen(source,timeout=5,phrase_time_limit=5)
+    try:
+        print(&quot;recognizing.....&quot;)
+        query = r.recognize_google(audio , language= &quot;en-us&quot;)
+        print(&quot;user said : &quot; , query )
+
+    except Exception as e :
+        return &quot;none&quot;
+    return query
+wishme()
+speak(&#39;i am siri , How can i help you&#39;)
+while True:
+    query = command().lower()
+    print(&quot;give a second&quot;)
+    speak(&quot;give a second&quot;)
+    if &quot;google search&quot; in query:
+        q=&quot;what do yo want to search in google&quot;
+        print(q)
+        speak(q)
+        k=command()
+        s=&quot;seraching in google&quot;
+        print(s)
+        speak(s)
+        webbrowser.open(k)
+        exit(0)
+    elif &quot;youtube&quot; in query:
+        webbrowser.open(&quot;www.youtube.com&quot;)
+    elif &quot;open google&quot; in query:
+        webbrowser.open(&quot;www.google.com&quot;)
+    elif &quot;time&quot; in query:
+        thetime = datetime.datetime.now().strftime(&quot;%H:%M:%S&quot;)
+        print(thetime)
+        speak(f&quot;\n\nthe time is {thetime}&quot;)
+    elif &quot;exit&quot; in query:
+        speak(&quot;bye&quot;)
+        exit(0)
+    elif&quot;i love you&quot; in query:
+        print(&quot;i love you 2 baby&quot;)
+        speak(&quot;i love you 2 baby&quot;)
+    elif &quot;alone&quot; in query:
+        print(&quot;don&#39;t feel sad i am always with you&quot;)
+
+        speak(&quot;don&#39;t feel sad i am always with you&quot;)
+    elif &quot;twitter&quot; in query:
+        print(&quot;opening twitter&quot;)
+        speak(&quot;opening twitter&quot;)
+        webbrowser.open(&quot;www.twitter.com&quot;)
+        exit(0)
+    elif &quot;music&quot; in query:
+        print(&quot;playing song in youtube&quot;)
+        speak(&quot;playing song in youtube&quot;)
+       
+webbrowser.open(&quot;https://www.youtube.com/watch?v=YE6LE9cwhXc&quot;
+)
+        exit(0)
+    elif &quot;instagram&quot; in query:
+        print(&quot;opeinginstagram&quot;)
+        speak(&quot;opeinginstagram&quot;)
+        webbrowser.open(&quot;www.instagram.com&quot;)
+        exit(0)
+    elif &quot;hai&quot; in query:
+        a=&quot;hai,how your day is going on?&quot;
+        print(a)
+        speak(a)
+        t=command()
+        if &quot;good&quot; in t:
+            s=&quot;good to hear that&quot;
+            print(s)
+            speak(s)
+        elif &quot;bad&quot; or &quot;sad&quot; in t:
+            c=&quot;life is full of suprises and maracles,don&#39;t feel sad&quot;
+            print(c)
+            speak(c)
+        else:
+            s=&quot;i can&#39;t catch that&quot;
+            print(t)
+            speak(t)                
+
+    elif &quot;thank you&quot; in query:
+        e=&quot;my pleasure&quot;
+        print(e)
+        speak(e)
+    elif &quot;your name&quot; in query:
+        e=&quot;my self siri ,I am an voice assistant&quot;
+        print(e)
+        speak(e)
+    elif &quot;search in google&quot; in query:
+        a=&quot;what do you what to search?&quot;
+        print(a)
+        speak(a)
+        t=command()
+        webbrowser.open(&quot;www.&quot;+t+&quot;.com&quot;)
+        exit(0)
+    else:
+        o=&quot;sorry for inconvenience this function is not yet develop&quot;
+        print(o)
+        speak(o)
+        exit(0)
